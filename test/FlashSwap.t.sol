@@ -9,15 +9,16 @@ import {IERC20} from "../interfaces/IERC20.sol";
 contract FlashSwapTest is Test {
     FlashSwap public flashSwap;
     address public constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    uint256 swapAmount = 1 ether;
 
     function setUp() public {
         uint256 mainnetFork = vm.createFork("https://eth.llamarpc.com");
         vm.selectFork(mainnetFork);
         flashSwap = new FlashSwap();
-        deal(WETH, address(flashSwap), 1 ether);
+        deal(WETH, address(flashSwap), swapAmount);
     }
 
     function testFlash() public {
-        flashSwap.flash();
+        flashSwap.swapExactToken1In(swapAmount);
     }
 }

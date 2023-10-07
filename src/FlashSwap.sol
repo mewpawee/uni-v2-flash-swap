@@ -19,12 +19,10 @@ contract FlashSwap is IUniswapV2Callee {
     // DAI token0, WETH token1
     address public constant PAIR = 0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11;
     address public constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    // uniswap use fee 0.3%
+    // 30/10000 -> 0.003 in decimals which is 0.3%
     uint256 public BPS = 10000;
     uint256 public fee = 30;
-
-    function flash() public {
-        swapExactToken1In(1e18);
-    }
 
     //deltay = FF* y * deltax / x + FFdeltaX
     function getAmount0Out(uint256 amountIn) internal returns (uint256 amountOut) {
